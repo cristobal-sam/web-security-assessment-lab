@@ -1,6 +1,6 @@
 # Web security assessment lab
 
-A reproducible HTTP security baseline review by Cristobal Samano Osuna, developed with AI assistance. Includes a local before/after fixture, assessment script and integration tests. This is a narrow assessment exercise, not a comprehensive pentest or an automated proof of exploitability.
+A reproducible HTTP security assessment project by Cristobal Samano Osuna. It includes a local before/after application, an assessment script, documented remediation and integration tests.
 
 ## Run
 
