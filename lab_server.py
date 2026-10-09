@@ -1,0 +1,25 @@
+"""Local fixture: /before lacks baseline headers; /after adds them."""
+from http.server import BaseHTTPRequestHandler, HTTPServer
+
+
+class Handler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        if self.path not in ('/before', '/after'):
+            self.send_error(404)
+            return
+        self.send_response(200)
+        self.send_header('Content-Type', 'text/html; charset=utf-8')
+        if self.path == '/after':
+            self.send_header('Content-Security-Policy', "default-src 'none'; frame-ancestors 'none'; base-uri 'none'")
+            self.send_header('X-Content-Type-Options', 'nosniff')
+            self.send_header('Referrer-Policy', 'no-referrer')
+        self.end_headers()
+        self.wfile.write(b'<h1>Local security assessment fixture</h1>')
+
+    def log_message(self, *args):
+        pass
+
+
+if __name__ == '__main__':
+    print('Fixture: http://127.0.0.1:8769/before and /after; Ctrl+C to stop')
+    HTTPServer(('127.0.0.1', 8769), Handler).serve_forever()
